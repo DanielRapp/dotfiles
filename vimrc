@@ -5,19 +5,31 @@ set nonumber
 set ruler
 syntax on
 
-" Prompt for a command to run
-"map rp :PromptVimTmuxCommand
-" Run last command executed by RunVimTmuxCommand
-"map rl :RunLastVimTmuxCommand
-" Inspect runner pane
-"map ri :InspectVimTmuxRunner
-" Close all other tmux panes in current window
-"map rx :CloseVimTmuxPanes
-" Interrupt any command running in the runner pane
-"map rs :InterruptVimTmuxRunner
+" Vundle
+filetype off
 
-" Make latex box compile on save
-"let g:LatexBox_latexmk_options = "-pvc -pdfps"
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'gmarik/github-search.vim'
+Bundle 'kchmck/vim-coffee-script'
+
+filetyp plugin indent on
+
+" LaTex
+imap %% $$<Esc>A<Space><Space>$$<Esc>hi
+" imap ## \begin{cases}\end{cases}<Esc>bbbbl
+
+" imap ^1 \begin{tabular}{ l }<Return>\end{tabular}<Esc>F\i<Return>
+" imap ^2 \begin{tabular}{ l l }<Return>\end{tabular}<Esc>F\i<Return>
+" imap ^3 \begin{tabular}{ l l l }<Return>\end{tabular}<Esc>F\i<Return>
+" imap ^4 \begin{tabular}{ l l l l }<Return>\end{tabular}<Esc>F\i<Return>
+" imap ^5 \begin{tabular}{ l l l l l }<Return>\end{tabular}<Esc>F\i<Return>
+" imap ^6 \begin{tabular}{ l l l l l l }<Return>\end{tabular}<Esc>F\i<Return>
+
+nmap <space> i <esc>r
 
 " For Latex-suite; grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
@@ -86,24 +98,13 @@ let g:CommandTMaxHeight=20
 map <Leader>z :ZoomWin<CR>
 
 " CTags
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+" map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
 
 " Remember last location in file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal g'\"" | endif
 endif
-
-function s:setupWrapping()
-  set wrap
-  set wm=2
-  set textwidth=72
-endfunction
-
-function s:setupMarkup()
-  call s:setupWrapping()
-  map <buffer> <Leader>p :Mm <CR>
-endfunction
 
 " make and python use real tabs
 au FileType make                                     set noexpandtab
@@ -155,6 +156,12 @@ nmap <C-Down> ]e
 " Bubble multiple lines
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
+
+" Colemak hjkl hack
+nnoremap <C-h> <Left>|
+nnoremap <C-n> <Down>|
+nnoremap <C-e> <Up>|
+nnoremap <C-i> <Right>|
 
 " Use modeline overrides
 set modeline

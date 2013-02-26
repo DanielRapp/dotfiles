@@ -7,7 +7,7 @@
 	filemode = false
 	autocrlf = input
 [color]
-  ui = auto
+	ui = true
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -36,7 +36,7 @@
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
 [user]
-	name = DanielRapp
+	name = Daniel Rapp
 	email = danielrappt@gmail.com
 [diff]
 	tool = vimdiff
@@ -45,3 +45,5 @@
 [alias]
 	d = difftool
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+[credential]
+	helper = osxkeychain
