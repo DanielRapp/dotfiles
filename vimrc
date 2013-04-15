@@ -1,10 +1,3 @@
-" Screw VI!
-set nocompatible
-
-set nonumber
-set ruler
-syntax on
-
 " Vundle
 filetype off
 
@@ -15,54 +8,34 @@ Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'gmarik/github-search.vim'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'Lokaltog/powerline'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'molokai'
+Bundle 'Lokaltog/vim-powerline'
 
 filetyp plugin indent on
 
-" LaTex
 imap %% $$<Esc>A<Space><Space>$$<Esc>hi
-" imap ## \begin{cases}\end{cases}<Esc>bbbbl
-
-" imap ^1 \begin{tabular}{ l }<Return>\end{tabular}<Esc>F\i<Return>
-" imap ^2 \begin{tabular}{ l l }<Return>\end{tabular}<Esc>F\i<Return>
-" imap ^3 \begin{tabular}{ l l l }<Return>\end{tabular}<Esc>F\i<Return>
-" imap ^4 \begin{tabular}{ l l l l }<Return>\end{tabular}<Esc>F\i<Return>
-" imap ^5 \begin{tabular}{ l l l l l }<Return>\end{tabular}<Esc>F\i<Return>
-" imap ^6 \begin{tabular}{ l l l l l l }<Return>\end{tabular}<Esc>F\i<Return>
-
 nmap <space> i <esc>r
 
-" For Latex-suite; grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
+set nocompatible
+set nonumber
+syntax on
 
-" Turn off placeholder chars in latex docs
-let g:Imap_UsePlaceHolders = 0
-
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
-
-" Make it fast and beautiful! :D
 set ttyfast
 set term=screen-256color
 set t_Co=256
 
-" Change cursor based on mode
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-" Encoding fix
+" Encoding
 set nobomb
 set encoding=utf-8
 
-" Whitespace stuff
+" Whitespace
 set nowrap
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set list listchars=tab:\ \ ,trail:·
+set list listchars=tab:\ \ ,trail:.
 set sts=2
 set sw=2
 
@@ -72,33 +45,22 @@ set incsearch
 set ignorecase
 set smartcase
 
-" No more middle mouse random paste!
-map <MiddleMouse> <Nop>
-imap <MiddleMouse> <Nop>
-
-" Settings for VimClojure
-let vimclojure#HighlightBuiltins=1 " Highlight Clojure's builtins
-let vimclojure#ParenRainbow=1 " Rainbow parentheses'!
-
-" Tab completion
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc
+" VimClojure
+let vimclojure#HighlightBuiltins=1
+let vimclojure#ParenRainbow=1
 
 " Status bar
 set laststatus=2
 
 " NERDTree configuration
-"let NERDTreeIgnore=['\.rbc$', '\~$']
-"map <Leader>n :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.rbc$', '\~$']
+map <Leader>n :NERDTreeToggle<CR>
 
 " Command-T configuration
 let g:CommandTMaxHeight=20
 
 " ZoomWin configuration
 map <Leader>z :ZoomWin<CR>
-
-" CTags
-" map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
 
 " Remember last location in file
 if has("autocmd")
@@ -110,70 +72,16 @@ endif
 au FileType make                                     set noexpandtab
 au FileType python                                   set noexpandtab
 
-" Thorfile, Rakefile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
-
 " md, markdown, and mk are markdown and define buffer-local preview
 au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
 
-au BufRead,BufNewFile *.txt call s:setupWrapping()
-
-" scss
-au BufRead,BufNewFile *.scss set filetype=scss
-
-" markdown folding
-au FileType markdown syn region myMkdHeaderFold
-        \ start="\v^\s*\z(\#{1,6})"
-        \ skip="\v(\n\s*\z1\#)\@="
-        \ end="\v\n(\s*\#)\@="ms=s-1,me=s-1
-        \ fold contains=myMkdHeaderFold
-
-au FileType markdown syn sync fromstart
-au FileType markdown set foldmethod=syntax
-
-" allow backspacing over everything in insert mode
+" Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-" load the plugin and indent settings for the detected filetype
-filetype plugin indent on
-
-" Opens an edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>e
-map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Opens a tab edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>t
-map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Inserts the path of the currently edited file into a command
-" Command mode: Ctrl+P
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-
-" Unimpaired configuration
-" Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
-" Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
-
-" Colemak hjkl hack
-nnoremap <C-h> <Left>|
-nnoremap <C-n> <Down>|
-nnoremap <C-e> <Up>|
-nnoremap <C-i> <Right>|
-
-" Use modeline overrides
-set modeline
-set modelines=10
-
 " Default color scheme
-" color desert
 color molokai
 
-" Include user's local vim config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
-
 set guioptions=aAce
+
+" Git-gutter
+highlight clear SignColumn

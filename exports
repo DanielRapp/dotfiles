@@ -9,3 +9,5 @@ export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups
 
 export PATH=$HOME/bin:$PATH
+
+export liu_id=danth407
